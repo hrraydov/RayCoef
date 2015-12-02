@@ -38,12 +38,6 @@ app.controller('MainCtrl', function($scope){
 				wonFinals.push(item);
 			}
 		});
-		angular.forEach($scope.combinations, function(cmb){
-			var flag = true;
-			angular.forEach(cmb.matches, function(match){
-				if(wonFinals.indexOf(match) )
-			});
-		});
 	};
 	
 	$scope.check = function(){
