@@ -32,7 +32,7 @@ app.controller('MainCtrl', function($scope, $location){
 	};
 	
 	$scope.getUrl = function(){
-		$scope.url = $location.protocol() + '://' + $location.host() + 'matches=' + angular.toJson($scope.matches);
+		$scope.url = $location.protocol() + '://' + $location.host() + $location.path() + '?matches=' + angular.toJson($scope.matches);
 	};
 	
 	$scope.addMatch = function(){
