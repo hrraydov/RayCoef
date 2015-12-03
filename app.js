@@ -1,6 +1,13 @@
 var app = angular.module('app', []);
 
-app.controller('MainCtrl', function($scope){
+app.config(function($locationProvider){
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	});
+});
+
+app.controller('MainCtrl', function($scope, $location){
 	$scope.matches = [
 		{
 			name: "",
@@ -10,16 +17,23 @@ app.controller('MainCtrl', function($scope){
 			name: "",
 			k: ""
 		}
-	];
-	
-	$scope.finals = [];
-	
-	$scope.combinations = [];
-	
+	];	
+	$scope.finals = [];	
+	$scope.combinations = [];	
 	$scope.systems = "";
 	$scope.bet = 1;
 	$scope.totalWinning = 0;
 	$scope.won = 0;
+	
+	$scope.init = function(){
+		if($location.search().matches !== undefined){
+			$scope.matches = angular.fromJson($location.search().matches);
+		}
+	};
+	
+	$scope.getUrl = function(){
+		$scope.url = $location.protocol() + '://' + $location.host() + 'matches=' + angular.toJson($scope.matches);
+	};
 	
 	$scope.addMatch = function(){
 		$scope.matches.push({
