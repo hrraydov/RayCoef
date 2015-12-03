@@ -19,6 +19,7 @@ app.controller('MainCtrl', function($scope){
 	$scope.systems = "";
 	$scope.bet = 1;
 	$scope.totalWinning = 0;
+	$scope.won = 0;
 	
 	$scope.addMatch = function(){
 		$scope.matches.push({
@@ -32,10 +33,27 @@ app.controller('MainCtrl', function($scope){
 	};
 	
 	$scope.see = function(){
+		$scope.won = 0;
+		
 		var wonFinals = [];
 		angular.forEach($scope.finals, function(item){
 			if(item.won === true){
 				wonFinals.push(item);
+			}
+		});
+		
+		
+		angular.forEach($scope.combinations, function(cmb){
+			//is the combination winning
+			var flag = true;
+			angular.forEach(cmb.matches, function(matchIndex){
+				console.log(_.findWhere(wonFinals, {index: matchIndex}));
+				if(_.findWhere(wonFinals, {index: matchIndex}) === undefined){
+					flag = false;
+				}
+			});
+			if(flag){
+				$scope.won += cmb.winning;
 			}
 		});
 	};
